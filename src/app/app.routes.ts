@@ -15,6 +15,13 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: '',
+    loadComponent: () =>
+      import('./auth/login/login')
+        .then(m => m.LoginComponent)
+  },
+  
+  {
     path: 'dashboard',
     loadComponent: () =>
       import('./cmponent/dashboard-component/dashboard-component')

@@ -13,12 +13,12 @@
 
 
 import { Component } from '@angular/core';
-import { LoginComponent } from './auth/login/login';
+import { RouterOutlet } from "@angular/router";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [LoginComponent],
-  template: `<app-login></app-login>`
+  imports: [RouterOutlet],
+  template: `<router-outlet></router-outlet>`
 })
 export class App {}
