@@ -69,7 +69,7 @@ export class AuthService {
   }
 
   // ================= LOGIN =================
-  async login(email: string) {
+  async login(email: string){
 
     const res = await fetch(`${this.baseUrl}/login-challenge`, {
       method: 'POST',
@@ -77,6 +77,7 @@ export class AuthService {
       body: JSON.stringify({ email })
     });
 
+    
     let options = await res.json();
     const pk = options.publicKeyCredentialRequestOptions;
 

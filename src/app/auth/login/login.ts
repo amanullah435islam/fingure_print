@@ -1,21 +1,12 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../core/auth-service';
-
-// @Component({
-//   selector: 'app-login',
-//   imports: [],
-//   templateUrl: './login.html',
-//   styleUrl: './login.css',
-// })
-
-
-
 import { FormsModule } from '@angular/forms';
+import { Router, RouterOutlet } from "@angular/router";
 
 @Component({
   selector: 'app-login',
   standalone: true, // 🔥 MUST
-  imports: [FormsModule], // 🔥 ngModel
+  imports: [FormsModule, RouterOutlet], // 🔥 ngModel
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -23,14 +14,22 @@ export class LoginComponent {
 
   email = '';
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   async onRegister() {
     await this.auth.register(this.email);
+    console.log("Registration successful, you can now log in.");
   }
 
   async onLogin() {
     const res = await this.auth.login(this.email);
-    alert(res.message);
+    console.log("Login response:", res);
+
+    if (res.success) {
+      localStorage.setItem("token", res.token);
+      this.router.navigate(['/dashboard']); // 🔥 MAIN LINE
+    } else {
+      alert("Login Failed");
+    }
   }
 }
